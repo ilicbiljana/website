@@ -1,0 +1,21 @@
+---
+import { site } from "@/content/site";
+import MainLayout from "@/layouts/MainLayout.astro";
+---
+
+<MainLayout title="Privacy Policy | Move to Spain Services">
+  <main class="container-shell section-space">
+    <div class="card-surface mx-auto max-w-3xl p-8 sm:p-12">
+      <p class="eyebrow">Privacy Policy</p>
+      <h1 class="mt-4 font-serif text-4xl text-ink">Your information is used only to respond to your inquiry.</h1>
+      <p class="mt-6 text-base leading-8 text-ink/75">{site.privacy}</p>
+      <p class="mt-4 text-base leading-8 text-ink/75">
+        For privacy questions, contact
+        <a class="font-semibold text-navy" href={`mailto:${site.contact.email}`}>
+          {site.contact.email}
+        </a>.
+      </p>
+      <a class="button-secondary mt-8" href="/">Back to Home</a>
+    </div>
+  </main>
+</MainLayout>

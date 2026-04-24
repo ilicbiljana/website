@@ -1,0 +1,332 @@
+---
+import { Image } from "astro:assets";
+import ContactForm from "@/components/ContactForm.astro";
+import SectionHeading from "@/components/SectionHeading.astro";
+import { site } from "@/content/site";
+import MainLayout from "@/layouts/MainLayout.astro";
+import heroImage from "@/assets/images/hero-relocation-consultation.png";
+
+const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#packages", label: "Packages" },
+  { href: "#reviews", label: "Reviews" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<MainLayout title="Move to Spain Services">
+  <header class="container-shell pt-6">
+    <div class="card-surface flex flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between">
+      <div class="flex items-center gap-4">
+        <div>
+          <p class="text-lg font-semibold tracking-tight text-ink">{site.name}</p>
+          <p class="text-sm text-ink/60">{site.title}</p>
+        </div>
+        <div class="hidden h-10 w-px bg-ink/10 sm:block"></div>
+        <div class="flex items-center gap-3 text-sm font-medium text-ink/70">
+          <span>🇺🇸 US</span>
+          <span>↔</span>
+          <span>🇪🇸 Spain</span>
+        </div>
+      </div>
+
+      <nav class="flex flex-wrap items-center gap-3 text-sm text-ink/70">
+        {navLinks.map((link) => (
+          <a class="rounded-full px-3 py-2 hover:bg-mist/60 hover:text-navy" href={link.href}>
+            {link.label}
+          </a>
+        ))}
+        <a class="button-primary" href="#contact">Book a Free Consultation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container-shell section-space">
+      <div class="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-stretch">
+        <div class="card-surface p-8 sm:p-12">
+          <p class="eyebrow">{site.hero.kicker}</p>
+          <h1 class="mt-5 max-w-4xl font-serif text-5xl leading-tight text-ink sm:text-6xl">
+            {site.hero.heading}
+          </h1>
+          <p class="mt-6 max-w-3xl text-lg leading-9 text-ink/75">{site.hero.intro}</p>
+
+          <div class="mt-10 flex flex-wrap gap-4">
+            <a class="button-primary" href="#contact">Book a Free Consultation</a>
+            <a class="button-secondary" href="#contact">Fill Out the Form</a>
+          </div>
+
+          <div class="mt-10 grid gap-5 md:grid-cols-2">
+            <article class="rounded-[1.75rem] bg-sand p-6">
+              <div class="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay">
+                <span>🇪🇸</span>
+                <span>Madrid Attorneys</span>
+              </div>
+              <p class="mt-4 text-base leading-8 text-ink/80">{site.hero.supporting[0]}</p>
+            </article>
+            <article class="rounded-[1.75rem] bg-mist/70 p-6">
+              <div class="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay">
+                <span>🇺🇸 🇪🇸</span>
+                <span>Relocation Services</span>
+              </div>
+              <p class="mt-4 text-base leading-8 text-ink/80">{site.hero.supporting[1]}</p>
+            </article>
+          </div>
+        </div>
+
+        <aside class="card-surface overflow-hidden p-4 sm:p-5">
+          <div class="relative h-full overflow-hidden rounded-[1.75rem]">
+            <Image
+              src={heroImage}
+              alt="Relocation consultant guiding clients through a move to Spain with documents, laptop, and relocation planning materials."
+              class="h-full min-h-[420px] w-full object-cover"
+              widths={[800, 1200, 1600]}
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/15 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+              <div class="max-w-md rounded-[1.5rem] border border-white/20 bg-white/14 p-5 backdrop-blur-md">
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-white/80">
+                  Cross-Border Support
+                </p>
+                <p class="mt-3 font-serif text-3xl leading-tight text-white">
+                  Calm guidance for a move that needs both legal precision and real-life coordination.
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="mt-8 card-surface p-8 sm:p-10">
+        <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+          <div class="max-w-2xl">
+            <p class="eyebrow">Why Clients Choose This</p>
+            <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
+              Predictable support for a move that changes everything.
+            </h2>
+          </div>
+          <p class="max-w-2xl text-base leading-8 text-ink/75">
+            The service is designed to feel steady from the first conversation through arrival, so
+            you are informed where you need to be involved and supported where the process gets heavy.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {site.principles.map((item) => (
+            <div class="rounded-3xl border border-ink/10 bg-white/70 p-5">
+              <p class="text-base leading-8 text-ink/80">{item}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="container-shell pb-10">
+      <div class="card-surface grid gap-8 p-8 sm:p-12 lg:grid-cols-[1fr_0.9fr]">
+        <div class="space-y-5">
+          <SectionHeading
+            eyebrow="Spanish tranquilo. NYC rigor."
+            title="The process should feel structured, even when the move is not."
+          />
+          {site.narrative.map((paragraph) => (
+            <p class="text-base leading-8 text-ink/75">{paragraph}</p>
+          ))}
+        </div>
+
+        <div class="rounded-[2rem] bg-navy p-8 text-white">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">NYC · Valencia</p>
+          <p class="mt-6 font-serif text-3xl leading-tight">
+            You can get everything right and still get tripped up by something as unexpected as pet
+            import regulations.
+          </p>
+          <p class="mt-5 text-base leading-8 text-white/75">
+            The point is not just legal correctness. It is reducing unnecessary anxiety while every
+            important step remains properly handled.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section-space">
+      <div class="container-shell">
+        <SectionHeading
+          eyebrow="What We Coordinate"
+          title="What kind of services you can expect for a rigor move to Spain."
+          intro={site.faqLead}
+        />
+
+        <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {site.services.map((service) => (
+            <article class="card-surface p-7">
+              <h3 class="font-serif text-2xl text-ink">{service.title}</h3>
+              <p class="mt-4 text-base leading-8 text-ink/75">{service.description}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a class="button-primary" href="#contact">Book a Free Consultation</a>
+          <a class="button-secondary" href="#contact">Fill Out the Form</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="packages" class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+          <div class="card-surface p-8 sm:p-12">
+            <SectionHeading
+              eyebrow="Packages & Booking"
+              title="Structure, precision, and continuity from the first call forward."
+              intro={site.packages.intro}
+            />
+
+            <div class="mt-8 space-y-4">
+              {site.packages.howWeWork.map((item) => (
+                <div class="rounded-3xl bg-sand p-5">
+                  <p class="text-base leading-8 text-ink/80">{item}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a class="button-primary" href="#contact">Book a Free Consultation</a>
+              <a class="button-secondary" href="#contact">Book a Strategy Session</a>
+            </div>
+          </div>
+
+          <div class="card-surface p-8 sm:p-12">
+            <p class="eyebrow">Not Sure Where to Start?</p>
+            <h3 class="mt-4 font-serif text-3xl text-ink">We will begin with the question behind the question.</h3>
+            <p class="mt-4 text-base leading-8 text-ink/75">{site.consultation.free}</p>
+            <p class="mt-4 text-base leading-8 text-ink/75">{site.consultation.formNote}</p>
+            <p class="mt-4 text-base leading-8 text-ink/75">{site.consultation.strategy}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="section-space">
+      <div class="container-shell">
+        <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <div class="card-surface p-8 sm:p-12">
+            <SectionHeading
+              eyebrow="What Our Clients Say"
+              title="Every case is handled with TuLex Abogados at the legal core."
+              intro="See the Madrid immigration law firm behind every case we handle. Their team has supported professionals and families through the full Digital Nomad Visa process, including the critical post-approval activation phase."
+            />
+
+            <div class="mt-8 flex flex-wrap gap-4">
+              <a
+                class="button-primary"
+                href={site.partners.reviewsHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Google Reviews
+              </a>
+              <a
+                class="button-secondary"
+                href={site.partners.tulexHref}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Visit TuLex Abogados
+              </a>
+            </div>
+          </div>
+
+          <div class="card-surface p-8 sm:p-12">
+            <p class="eyebrow">Founder</p>
+            <div class="mt-4 flex items-center justify-between gap-4">
+              <div>
+                <h3 class="font-serif text-3xl text-ink">{site.founder.name}</h3>
+                <p class="mt-2 text-sm text-ink/60">{site.founder.role}</p>
+              </div>
+              <a
+                class="text-sm font-semibold text-navy underline-offset-4 hover:underline"
+                href={site.founder.linkedin}
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn →
+              </a>
+            </div>
+
+            <div class="mt-6 space-y-4">
+              {site.founder.story.map((paragraph) => (
+                <p class="text-base leading-8 text-ink/75">{paragraph}</p>
+              ))}
+            </div>
+
+            <p class="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
+              🇺🇸 NYC · 🇪🇸 Valencia
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <ContactForm />
+  </main>
+
+  <footer class="pb-8 pt-4">
+    <div class="container-shell">
+      <div class="card-surface grid gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1fr_1fr_0.8fr]">
+        <div>
+          <p class="text-lg font-semibold text-ink">Move to Spain Services</p>
+          <p class="mt-3 text-sm leading-7 text-ink/70">{site.description}</p>
+          <p class="mt-4 text-sm font-medium text-ink/60">🇺🇸 US · 🇪🇸 Spain</p>
+        </div>
+
+        <div class="space-y-3 text-sm text-ink/75">
+          <p>
+            Email:
+            <a class="font-semibold text-navy" href={`mailto:${site.contact.email}`}>
+              {site.contact.email}
+            </a>
+          </p>
+          <p>
+            Book a Free Consultation:
+            <a class="font-semibold text-navy" href={site.contact.consultationHref}>
+              Fill out the on-site form
+            </a>
+          </p>
+          <p>
+            WhatsApp:
+            <a class="font-semibold text-navy" href={site.contact.whatsappHref}>
+              {site.contact.whatsappLabel}
+            </a>
+          </p>
+          <p>{site.contact.responseWindow}</p>
+          <p>
+            <a class="font-semibold text-navy" href="/privacy-policy">
+              Privacy Policy
+            </a>
+          </p>
+        </div>
+
+        <div class="space-y-3 text-sm text-ink/75">
+          <p class="font-semibold text-ink">Legal Partner</p>
+          <a
+            class="block text-lg font-semibold text-navy"
+            href={site.partners.tulexHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            TuLex Abogados
+          </a>
+          <a
+            class="block font-medium text-navy"
+            href={site.partners.reviewsHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Google Reviews
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</MainLayout>

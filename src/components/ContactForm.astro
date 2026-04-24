@@ -1,0 +1,172 @@
+---
+const consultationOptions = [
+  "Digital Nomad Visa",
+  "Spanish residency options",
+  "Tax setup",
+  "Property search or purchase",
+  "Full relocation planning",
+  "Family move",
+];
+---
+
+<section id="contact" class="section-space">
+  <div class="container-shell">
+    <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="card-surface p-8 sm:p-10">
+        <p class="eyebrow">Book a Consultation</p>
+        <h2 class="mt-4 font-serif text-3xl text-ink sm:text-4xl">
+          Start with your specific questions.
+        </h2>
+        <p class="mt-4 max-w-xl text-base leading-8 text-ink/75">
+          Pre-filling this form allows us to focus on your situation and provide more relevant
+          answers. If your case looks like a fit, we will email you to schedule a free
+          consultation within 72 hours.
+        </p>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-3xl bg-sand p-5">
+            <p class="text-sm font-semibold text-ink">Free consultation</p>
+            <p class="mt-2 text-sm leading-7 text-ink/70">
+              20 minutes focused on your visa, tax, property, or relocation questions.
+            </p>
+          </div>
+          <div class="rounded-3xl bg-mist/60 p-5">
+            <p class="text-sm font-semibold text-ink">Strategy session</p>
+            <p class="mt-2 text-sm leading-7 text-ink/70">
+              60 minutes for deeper planning. €150, fully credited toward any package.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-surface p-8 sm:p-10">
+        <form id="contact-form" class="space-y-5">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="space-y-2 text-sm font-medium text-ink">
+              Full name
+              <input
+                class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+                type="text"
+                name="name"
+                required
+              />
+            </label>
+            <label class="space-y-2 text-sm font-medium text-ink">
+              Email
+              <input
+                class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+                type="email"
+                name="email"
+                required
+              />
+            </label>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="space-y-2 text-sm font-medium text-ink">
+              Current location
+              <input
+                class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+                type="text"
+                name="location"
+              />
+            </label>
+            <label class="space-y-2 text-sm font-medium text-ink">
+              Household
+              <input
+                class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+                type="text"
+                name="household"
+                placeholder="Solo, couple, family"
+              />
+            </label>
+          </div>
+
+          <label class="space-y-2 text-sm font-medium text-ink">
+            Main area of support
+            <select
+              class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+              name="interest"
+              required
+            >
+              <option value="">Select one</option>
+              {consultationOptions.map((option) => <option value={option}>{option}</option>)}
+            </select>
+          </label>
+
+          <label class="space-y-2 text-sm font-medium text-ink">
+            Timeline
+            <input
+              class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+              type="text"
+              name="timeline"
+              placeholder="For example: moving within 3 months"
+            />
+          </label>
+
+          <label class="space-y-2 text-sm font-medium text-ink">
+            What would you like to focus on?
+            <textarea
+              class="min-h-40 w-full rounded-3xl border border-ink/10 bg-white px-4 py-3 text-base outline-none transition focus:border-navy/40"
+              name="message"
+              required
+            ></textarea>
+          </label>
+
+          <label class="flex items-start gap-3 rounded-2xl bg-sand px-4 py-4 text-sm leading-6 text-ink/75">
+            <input class="mt-1" type="checkbox" name="consent" required />
+            <span>
+              I consent to being contacted about my inquiry and understand my information will be
+              used only to respond to my request.
+            </span>
+          </label>
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <button class="button-primary" type="submit">Send Inquiry</button>
+            <p id="form-status" class="text-sm text-ink/70" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  const form = document.querySelector("#contact-form");
+  const status = document.querySelector("#form-status");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!(form instanceof HTMLFormElement) || !(status instanceof HTMLElement)) return;
+
+    status.textContent = "Sending your inquiry...";
+
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Something went wrong.");
+      }
+
+      form.reset();
+      status.textContent = "Thanks. Your inquiry was sent successfully.";
+    } catch (error) {
+      status.textContent =
+        error instanceof Error
+          ? error.message
+          : "We could not send your inquiry right now. Please email us directly.";
+    }
+  });
+</script>
